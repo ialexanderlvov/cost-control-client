@@ -29,8 +29,8 @@ export const TotalResults: FC<ITotalResultsProps> = ({
 	};
 	
 	return (
-		<div className={classNames('py-sdasda', className)} {...props}>
-			<div className="bg-gradient-to-r from-primary/10 to-primary/20 rounded-xl px-6 py-3 shadow-medium border border-primary/30">
+		<div className={classNames( className)} {...props}>
+			<div className="bg-primary/15 rounded-xl px-6 py-3 shadow-medium border border-primary/30">
 				<Title level={level} className="flex items-center gap-3 [&>h1]:text-white">
 					<span className="text-gray-300 font-semibold">Итого:</span>
 					<span className={classNames(
