@@ -5,4 +5,5 @@ export interface ITotalResultsProps
 	extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
 	records: IRecord[];
 	level: number;
+	type?: 'all' | 'income' | 'expense';
 }

@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { IMainProps } from './Main.props';
-import styles from './Main.module.css';
 import { Button } from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux.hooks';
@@ -96,14 +95,20 @@ export const Main: FC<IMainProps> = ({ className, ...props }) => {
 	}, [updatedSearch, dispatch]);
 
 	return (
-		<div className={classNames(styles.root, className)} {...props}>
+		<div
+			className={classNames(
+				'min-h-screen p-6 pb-[300px]',
+				className
+			)}
+			{...props}
+		>
 			<Modals />
-			<div className={classNames(styles['create-btns'])}>
+			<div className="flex gap-3 fixed top-6 right-6 z-40">
 				<Button
 					onClick={(e) =>
 						dispatch(modalsActions.changeModal('create-category'))
 					}
-					className={classNames(styles.create)}
+					className="!bg-gray-700 !text-white px-6 py-3 hover:!bg-gray-600 shadow-lg hover:shadow-xl transition-all !border-gray-600 rounded-xl font-semibold"
 				>
 					Новая категория
 				</Button>
@@ -111,18 +116,20 @@ export const Main: FC<IMainProps> = ({ className, ...props }) => {
 					onClick={(e) =>
 						dispatch(modalsActions.changeModal('create-record'))
 					}
-					className={classNames(styles.create)}
+					className="!bg-primary !text-gray-900 px-6 py-3 hover:!bg-primary-light shadow-lg hover:shadow-xl transition-all !border-primary rounded-xl font-semibold"
 				>
 					Новая запись
 				</Button>
 			</div>
-			<div className={classNames(styles.header)}>
-				<div className={classNames(styles.btns)}>
+			<div className="w-full max-w-5xl mx-auto flex flex-col gap-4 mb-8 bg-gray-800/80 backdrop-blur-md p-6 rounded-2xl shadow-medium border border-gray-700/50">
+				<div className="flex gap-3 flex-wrap">
 					<Button
 						onClick={(e) =>
 							dispatch(recordsActions.changeType('expense'))
 						}
 						active={type === 'expense'}
+						variant="primary"
+						className="min-w-[120px]"
 					>
 						Расходы
 					</Button>
@@ -131,6 +138,8 @@ export const Main: FC<IMainProps> = ({ className, ...props }) => {
 							dispatch(recordsActions.changeType('income'))
 						}
 						active={type === 'income'}
+						variant="primary"
+						className="min-w-[120px]"
 					>
 						Доходы
 					</Button>
@@ -139,14 +148,16 @@ export const Main: FC<IMainProps> = ({ className, ...props }) => {
 							dispatch(recordsActions.changeType('all'))
 						}
 						active={type === 'all'}
+						variant="primary"
+						className="min-w-[120px]"
 					>
 						Общее
 					</Button>
 				</div>
-				<div className={classNames(styles.dates)}>
+				<div className="flex gap-2 flex-wrap">
 					<Input
 						value={startDate}
-						type='date'
+						type="date"
 						onChange={(e) => {
 							if (e.target.value) {
 								dispatch(
@@ -160,7 +171,7 @@ export const Main: FC<IMainProps> = ({ className, ...props }) => {
 					/>
 					<Input
 						value={lastDate}
-						type='date'
+						type="date"
 						onChange={(e) => {
 							if (e.target.value) {
 								dispatch(
@@ -173,10 +184,11 @@ export const Main: FC<IMainProps> = ({ className, ...props }) => {
 						}}
 					/>
 				</div>
-				<div className={classNames(styles.category)}>
+				<div className="w-full">
 					<select
 						value={category}
 						onChange={(e) => setCategory(e.target.value)}
+						className="w-full"
 					>
 						<option value={'Все категории'}>Все категории</option>
 						{categories.map((cat) => (
@@ -186,28 +198,29 @@ export const Main: FC<IMainProps> = ({ className, ...props }) => {
 						))}
 					</select>
 				</div>
-				<div className={classNames(styles.search)}>
+				<div className="w-full">
 					<Input
-						name='cost-search-input'
+						name="cost-search-input"
 						value={searchLocal}
 						onChange={(e) => setSearchLocal(e.target.value)}
-						placeholder='Поиск по названию'
+						placeholder="Поиск по названию"
 					/>
 				</div>
-				<div className={classNames(styles['search-tag'])}>
+				<div className="w-full">
 					<InputWithDropdown onClickAddHandler={onClickAddHandler} />
 				</div>
-				<div className={classNames(styles.tags)}>
+				<div className="w-full">
 					<Tags onDeleteHandler={onDeleteHandler} tags={activeTags} />
 				</div>
 			</div>
-			<main className={classNames(styles.main)}>
+			<main className="w-full max-w-5xl mx-auto mt-6">
 				<TotalResults
-					className={classNames(styles.result)}
+					className="mb-8"
 					records={currentRecords}
 					level={1}
+					type={type}
 				/>
-				<div className={classNames(styles.datesComp)}>
+				<div className="mt-6 flex flex-col gap-16">
 					{dates.map((date) => (
 						<DateComponent
 							key={date}

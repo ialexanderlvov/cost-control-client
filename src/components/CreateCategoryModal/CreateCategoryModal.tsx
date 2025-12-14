@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
 import classNames from 'classnames';
 import { ICreateCategoryModalProps } from './CreateCategoryModal.props';
-import styles from './CreateCategoryModal.module.css';
 import { Portal } from '../Portal/Portal';
 import { Modal } from '../Modal/Modal';
 import { Input } from '../Input/Input';
@@ -29,11 +28,13 @@ export const CreateCategoryModal: FC<ICreateCategoryModalProps> = ({
 	};
 
 	return (
-		<Portal className={classNames(styles.root, className)} {...props}>
+		<Portal className={classNames('', className)} {...props}>
 			<Modal>
 				<div
 					onClick={(e) => e.stopPropagation()}
-					className={classNames(styles.wrap)}
+					className={classNames(
+						'p-8 w-[90vw] max-w-md bg-gray-800 rounded-2xl flex flex-col gap-4 shadow-large border border-gray-700 animate-scaleIn'
+					)}
 				>
 					<Input
 						value={name}

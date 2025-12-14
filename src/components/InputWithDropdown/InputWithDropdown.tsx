@@ -8,7 +8,6 @@ import React, {
 } from 'react';
 import classNames from 'classnames';
 import { IInputWithDropdownProps } from './InputWithDropdown.props';
-import styles from './InputWithDropdown.module.css';
 import { Input } from '../Input/Input';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux.hooks';
 import { tagsActions } from '../../redux/slices/tags.slice';
@@ -59,19 +58,20 @@ export const InputWithDropdown: FC<IInputWithDropdownProps> = ({
 	return (
 		<div
 			data-tag-search-wrap
-			className={classNames(styles.root, className)}
+			className={classNames('relative w-full h-[35px]', className)}
 			{...props}
 		>
-			<div className={classNames(styles.wrap)}>
+			<div className="flex flex-col gap-2 absolute top-0 left-0 w-full">
 				<Input
 					onKeyDown={onKeyDownHandler}
 					value={search}
 					onChange={(e) => setSearch(e.target.value)}
 					onFocus={(e) => setOpen(true)}
-					placeholder='Тэги'
+					placeholder="Тэги"
+					className="font-semibold"
 				/>
 				{open && searchedTags.length !== 0 && (
-					<div className={classNames(styles.data)}>
+					<div className="flex flex-col bg-gray-800 rounded-xl border border-gray-700 w-full max-h-[200px] overflow-y-auto shadow-large z-10 mt-2">
 						{searchedTags.map((item) => (
 							<div
 								onClick={(e) => {
@@ -80,7 +80,7 @@ export const InputWithDropdown: FC<IInputWithDropdownProps> = ({
 									setSearch('');
 								}}
 								key={item.name}
-								className={classNames(styles.item)}
+								className="w-full px-4 py-2.5 text-sm font-medium cursor-pointer transition-all hover:bg-primary/20 hover:text-primary border-b border-gray-700 last:border-b-0 first:rounded-t-xl last:rounded-b-xl text-white"
 							>
 								{item.name}
 							</div>

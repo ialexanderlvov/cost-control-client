@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import classNames from 'classnames';
 import { IModalProps } from './Modal.props';
-import styles from './Modal.module.css';
 import { useAppDispatch } from '../../hooks/redux.hooks';
 import { modalsActions } from '../../redux/slices/modals.slice';
 
@@ -19,7 +18,10 @@ export const Modal: FC<IModalProps> = ({ className, children, ...props }) => {
 	return (
 		<div
 			onClick={(e) => dispatch(modalsActions.changeModal('none'))}
-			className={classNames(styles.root, className)}
+			className={classNames(
+				'fixed inset-0 w-screen h-screen bg-black/70 flex items-center justify-center z-50 backdrop-blur-sm animate-fadeIn',
+				className
+			)}
 			{...props}
 		>
 			{children}

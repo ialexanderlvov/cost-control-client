@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { IUpdateRecordModalProps } from './UpdateRecordModal.props';
-import styles from './UpdateRecordModal.module.css';
 import { InputWithDropdown } from '../InputWithDropdown/InputWithDropdown';
 import { Tags } from '../Tags/Tags';
 import { Input } from '../Input/Input';
@@ -83,11 +82,13 @@ export const UpdateRecordModal: FC<IUpdateRecordModalProps> = ({
 	}, []);
 
 	return (
-		<Portal className={classNames(styles.root, className)} {...props}>
+		<Portal className={classNames('', className)} {...props}>
 			<Modal>
 				<div
 					onClick={(e) => e.stopPropagation()}
-					className={classNames(styles.wrap)}
+					className={classNames(
+						'w-[90vw] max-w-2xl max-h-[90vh] overflow-y-auto p-8 bg-gray-800 rounded-2xl flex flex-col gap-4 shadow-large border border-gray-700 animate-scaleIn'
+					)}
 				>
 					<select
 						value={category}

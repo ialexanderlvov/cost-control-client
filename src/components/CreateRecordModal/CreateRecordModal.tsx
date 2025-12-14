@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { ICreateRecordModalProps } from './CreateRecordModal.props';
-import styles from './CreateRecordModal.module.css';
 import { Portal } from '../Portal/Portal';
 import { Modal } from '../Modal/Modal';
 import { Input } from '../Input/Input';
@@ -87,12 +86,14 @@ export const CreateRecordModal: FC<ICreateRecordModalProps> = ({
 	}, []);
 
 	return (
-		<Portal className={classNames(styles.root, className)} {...props}>
+		<Portal className={classNames('', className)} {...props}>
 			<Modal>
 				<form
 					onSubmit={(e) => e.preventDefault()}
 					onClick={(e) => e.stopPropagation()}
-					className={classNames(styles.wrap)}
+					className={classNames(
+						'w-[90vw] max-w-2xl max-h-[90vh] overflow-y-auto p-8 bg-gray-800 rounded-2xl flex flex-col gap-4 shadow-large border border-gray-700 animate-scaleIn'
+					)}
 				>
 					<select
 						value={category}

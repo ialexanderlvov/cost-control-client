@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
 import { ITotalResultsProps } from './TotalResults.props';
-import styles from './TotalResults.module.css';
 import { Title } from '../Title/Title';
 
 export const TotalResults: FC<ITotalResultsProps> = ({
 	className,
 	records,
 	level,
+	type,
 	...props
 }) => {
 	const totalSum = records.reduce(
@@ -15,11 +15,30 @@ export const TotalResults: FC<ITotalResultsProps> = ({
 			record.type === 'expense' ? prev - record.sum : prev + record.sum,
 		0
 	);
+	
+	// Определяем цвет в зависимости от типа
+	const getColorClass = () => {
+		if (type === 'income') {
+			return 'text-lime-500';
+		}
+		if (type === 'expense') {
+			return 'text-danger';
+		}
+		// Для 'all' или когда type не передан, используем логику по знаку суммы
+		return totalSum >= 0 ? 'text-lime-500' : 'text-danger';
+	};
+	
 	return (
-		<div className={classNames(styles.root, className)} {...props}>
-			<div className={classNames(styles.wrap)}>
-				<Title level={level}>
-					Итого: <span>{totalSum.toLocaleString('ru')}</span> руб
+		<div className={classNames('py-sdasda', className)} {...props}>
+			<div className="bg-gradient-to-r from-primary/10 to-primary/20 rounded-xl px-6 py-3 shadow-medium border border-primary/30">
+				<Title level={level} className="flex items-center gap-3 [&>h1]:text-white">
+					<span className="text-gray-300 font-semibold">Итого:</span>
+					<span className={classNames(
+						'text-3xl font-bold',
+						getColorClass()
+					)}>
+						{totalSum >= 0 ? '+' : ''}{totalSum.toLocaleString('ru')} ₽
+					</span>
 				</Title>
 			</div>
 		</div>
